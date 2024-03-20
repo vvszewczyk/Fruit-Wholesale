@@ -1,0 +1,10 @@
+k, Dorek, wiadro;
+k, Cosnek, wodospad;
+d, Fafik, strzalka;
+p, Szeregowy, lota;
+k, Alicja, mik;
+k, Maciek, siema;
+k, Ziomek, git;
+k, Tomcio, paluszek;
+k, Janek, seeema;
+k, m, m;

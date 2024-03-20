@@ -1,0 +1,7 @@
+cytryna, 2.22, 16000;
+banan, 6.5, 0;
+jablko, 1.99, 450;
+pomarancza, 7.42, 3500;
+truskawka, 11.98, 12980;
+kiwi, 6.99, 1780;
+liczi, 2.12, 1800;
