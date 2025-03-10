@@ -10,8 +10,6 @@
 *.userosscache
 *.sln.docstates
 
-# Ignoruj foldery z wynikami kompilacji
-x64/
 x86/
 [Dd]ebug*/
 [Rr]elease*/
