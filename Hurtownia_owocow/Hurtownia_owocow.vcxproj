@@ -24,6 +24,7 @@
     <ClInclude Include="Employee.h" />
     <ClInclude Include="Fruit.h" />
     <ClInclude Include="Order.h" />
+    <ClInclude Include="Payment.h" />
     <ClInclude Include="Person.h" />
     <ClInclude Include="Storage.h" />
     <ClInclude Include="Supplier.h" />
@@ -35,6 +36,7 @@
     <ClCompile Include="Fruit.cpp" />
     <ClCompile Include="Hurtownia_owocow.cpp" />
     <ClCompile Include="Order.cpp" />
+    <ClCompile Include="Payment.cpp" />
     <ClCompile Include="Person.cpp" />
     <ClCompile Include="Storage.cpp" />
     <ClCompile Include="Supplier.cpp" />

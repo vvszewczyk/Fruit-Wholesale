@@ -1,11 +1,4 @@
-﻿  Customer.cpp
-  Database.cpp
-  Employee.cpp
-  Fruit.cpp
-  Hurtownia_owocow.cpp
-  Order.cpp
-  Person.cpp
-  Storage.cpp
-  Supplier.cpp
-  Generowanie kodu...
-  Hurtownia_owocow.vcxproj -> E:\repos\Projektowanie oprogramowania\Hurtownia_owocow — kopia\x64\Debug\Hurtownia_owocow.exe
+﻿  Hurtownia_owocow.cpp
+  Payment.cpp
+  Generating Code...
+  Hurtownia_owocow.vcxproj -> D:\Github\Fruit-Wholesale-s\x64\Debug\Hurtownia_owocow.exe
