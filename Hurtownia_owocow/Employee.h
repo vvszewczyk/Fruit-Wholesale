@@ -3,11 +3,11 @@
 
 class Employee : public Person
 {
-public:
+  public:
     Employee(std::string l, std::string h);
-    void considerReturn(); // TO DO
-    void realizeOrder(); // TO DO
-    void updateFruit(); // TO DO
-    void updateStorage(); // TO DO
+    void considerReturn();
+    void realizeOrder();
+    void updateFruit();
+    void updateStorage();
     void realizeDelivery(); // TO DO
 };

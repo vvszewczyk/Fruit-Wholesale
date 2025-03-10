@@ -35,8 +35,7 @@ void Employee::updateFruit()
     std::cin >> fruitName;
     std::cout << "Podaj nowa cene owocu: ";
     std::cin >> newPrice;
-    std::cout << "Podaj nowa ilosc owocu: ";
-    // TO DO: dodac owoc do bazy danych
+    std::cout << "Podaj nowa ilosc owocow: ";
     std::cout << "Owoc " << fruitName << " zostal dodany do bazy danych\n";
     std::cin >> newAmount;
 
@@ -47,6 +46,55 @@ void Employee::updateFruit()
 
 void Employee::updateStorage()
 {
+    std::cout << "Wybierz opcje:\n1 - dodaj owoc\n2 - usun owoc\n3 - aktualizuj owoc\n";
+    int option;
+    std::cin >> option;
+    switch (option)
+    {
+    case 1: {
+        std::string name;
+        float price;
+        int amount;
+        std::cout << "Podaj nazwe owocu: ";
+        std::cin >> name;
+        std::cout << "Podaj cene owocu: ";
+        std::cin >> price;
+        std::cout << "Podaj ilosc owocow: ";
+        std::cin >> amount;
+        Storage *storage = Storage::getInstance();
+        storage->addFruit(name, price, amount);
+        std::cout << "Owoc " << name << " zostal dodany do magazynuh\n";
+        break;
+    }
+    case 2: {
+        std::string name;
+        std::cout << "Podaj nazwe owocu do usuniecia: ";
+        std::cin >> name;
+        Storage *storage = Storage::getInstance();
+        storage->deleteFruit(name);
+        std::cout << "Owoc " << name << " zostal usuniety z magazynu\n";
+        break;
+    }
+    case 3: {
+        std::string name;
+        float price;
+        int amount;
+        std::cout << "Podaj nazwe owocu do aktualizacji: ";
+        std::cin >> name;
+        std::cout << "Podaj nowa cene owocu: ";
+        std::cin >> price;
+        std::cout << "Podaj nowa ilosc owocow: ";
+        std::cin >> amount;
+        Storage *storage = Storage::getInstance();
+        storage->updateFruit(name, price, amount);
+        std::cout << "Owoc " << name << " zostal zaktualizowany\n";
+        break;
+    }
+    default: {
+        std::cout << "Niepoprawna opcja\n";
+        break;
+    }
+    }
 }
 
 void Employee::realizeDelivery()
