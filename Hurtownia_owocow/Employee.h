@@ -9,5 +9,5 @@ class Employee : public Person
     void realizeOrder();
     void updateFruit();
     void updateStorage();
-    void realizeDelivery(); // TO DO
+    void realizeDelivery();
 };

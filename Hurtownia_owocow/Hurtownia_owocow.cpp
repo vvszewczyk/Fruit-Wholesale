@@ -61,13 +61,12 @@ void logging(bool logged, int option, std::string &login, std::string &password,
         switch (option)
         {
         case 1: {
-            std::cout << "Jeżeli chcesz zalożyć konto to wybierz 1, jesli nie 0\n";
+            std::cout << "Jezeli chcesz zalozyc konto to wybierz 1, jesli nie 0\n";
             std::cin >> newAccount;
 
             if (newAccount == 1)
             {
                 enterData(login, password);
-                // addCustomerAccount(login, password);
                 database->addCustomer(login, password);
                 database->readFolks();
             }
@@ -105,7 +104,7 @@ void enterData(std::string &login, std::string &password)
     std::cout << "PODAJ DANE\n";
     std::cout << "Podaj login: ";
     std::cin >> login;
-    std::cout << "\nPodaj hasło: ";
+    std::cout << "\nPodaj haslo: ";
     std::cin >> password;
     std::cout << "\n";
 }
@@ -115,13 +114,13 @@ bool customerCondition(std::string login, std::string password, bool logged, Dat
     // Logika dla klienta
     if (database->isCustomerExists(login, password))
     {
-        int session = 1;
+        bool session = true;
         while (session)
         {
             Customer klient = database->loginCustomer(login, password);
             logged = false;
-
-            std::cout << "\n\n1. Zloz zamowienie\n";
+            std::cout << "\n--- Menu Klienta ---\n";
+            std::cout << "1. Zloz zamowienie\n";
             std::cout << "2. Zloz zwrot zamowienia\n";
             std::cout << "Inna opcja - wyjdz z systemu\n";
             int customerPrompt;
@@ -204,7 +203,7 @@ bool customerCondition(std::string login, std::string password, bool logged, Dat
                 }
                 else
                 {
-                    std::cout << "Płatność nie powiodła się, zamówienie anulowane.\n";
+                    std::cout << "Platnosc nie powiodla sie, zamowienie anulowane.\n";
                     newOrder.cancelOrder(*storage);
                 }
 
@@ -221,12 +220,12 @@ bool customerCondition(std::string login, std::string password, bool logged, Dat
                 oldOrder.readOrder(login, orderId);
                 oldOrder.showOrder();
 
-                std::cout << "\nZamowienie " << orderId << " zostanie wkrótce zwrócone :)\n";
+                std::cout << "\nZamowienie " << orderId << " zostanie wkrotce zwrocone :)\n";
                 break;
             }
             default: {
                 logged = false;
-                session = 0;
+                session = false;
                 break;
             }
             }
@@ -234,8 +233,8 @@ bool customerCondition(std::string login, std::string password, bool logged, Dat
     }
     else
     {
-        std::cout << "Błędne dane, chcesz spróbować ponownie?\n";
-        std::cout << "1 - tak, cokolwiek innego znaczy, że nie :(\n";
+        std::cout << "Bledne dane, chcesz sprobowac ponownie?\n";
+        std::cout << "1 - tak, cokolwiek innego znaczy, ze nie :(\n";
         bool opt = false;
         std::cin >> opt;
 
@@ -257,15 +256,55 @@ bool employeeCondition(std::string login, std::string password, bool logged, Dat
     // Logika dla pracownika
     if (database->isEmployeeExists(login, password))
     {
+        bool session = true;
         Employee pracownik = database->loginEmployee(login, password);
-        std::cout << "System niedokończony\n";
-        // Tu dodaj działania dla pracownika
-        logged = false;
+
+        while (session)
+        {
+            std::cout << "\n--- Menu Pracownika ---\n";
+            std::cout << "1. Realizacja zamowienia\n";
+            std::cout << "2. Rozpatrzenie zwrotu\n";
+            std::cout << "3. Aktualizacja danych o owocach\n";
+            std::cout << "4. Zarzadzanie magazynem (dodaj/usun owoc)\n";
+            std::cout << "5. Realizacja dostawy\n";
+            std::cout << "Inna opcja - wyjdz z systemu\n";
+
+            int option;
+            std::cin >> option;
+            switch (option)
+            {
+            case 1: {
+                pracownik.realizeOrder();
+                break;
+            }
+            case 2: {
+                pracownik.considerReturn();
+                break;
+            }
+            case 3: {
+                pracownik.updateFruit();
+                break;
+            }
+            case 4: {
+                pracownik.updateStorage();
+                break;
+            }
+            case 5: {
+                pracownik.realizeDelivery();
+                break;
+            }
+            default: {
+                session = false;
+                logged = false;
+                break;
+            }
+            }
+        }
     }
     else
     {
-        std::cout << "Błędne dane, chcesz spróbować ponownie?\n";
-        std::cout << "1 - tak, cokolwiek innego znaczy, że nie :(\n";
+        std::cout << "Bledne dane, chcesz sprobowac ponownie?\n";
+        std::cout << "1 - tak, cokolwiek innego znaczy, ze nie :(\n";
         bool opt = false;
         std::cin >> opt;
 
@@ -294,8 +333,8 @@ bool supplierCondition(std::string login, std::string password, bool logged, Dat
     }
     else
     {
-        std::cout << "Błędne dane, chcesz spróbować ponownie?\n";
-        std::cout << "1 - tak, cokolwiek innego znaczy, że nie :(\n";
+        std::cout << "Bledne dane, chcesz sprobowac ponownie?\n";
+        std::cout << "1 - tak, cokolwiek innego znaczy, ze nie :(\n";
         bool opt = false;
         std::cin >> opt;
 
