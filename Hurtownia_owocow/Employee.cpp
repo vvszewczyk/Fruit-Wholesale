@@ -99,4 +99,37 @@ void Employee::updateStorage()
 
 void Employee::realizeDelivery()
 {
-}
+    std::string deliveryID;
+    std::cout << "Podaj ID dostawy: ";
+    std::cin >> deliveryID;
+
+    int numFruits;
+    std::cout << "Ile roznych owocow w dostawie?: ";
+    std::cin >> numFruits;
+
+    Storage *storage = Storage::getInstance();
+
+    for (int i = 0; i < numFruits; ++i)
+    {
+        std::string name;
+        float price;
+        int amount;
+        std::cout << "Owoc " << i + 1 << ":\n";
+        std::cout << "Nazwa: ";
+        std::cin >> name;
+        std::cout << "Cena: ";
+        std::cin >> price;
+        std::cout << "Ilosc: ";
+        std::cin >> amount;
+
+        if (storage->isInStorage(name))
+        {
+            storage->updateFruit(name, price, storage->getAmount(name) + amount);
+        }
+        else
+        {
+            storage->addFruit(name, price, amount);
+        }
+
+        std::cout << "Dostawa zostala zrealizowana\n";
+    }
