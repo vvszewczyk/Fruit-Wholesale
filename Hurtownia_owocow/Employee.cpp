@@ -28,6 +28,21 @@ void Employee::realizeOrder()
 
 void Employee::updateFruit()
 {
+    std::string fruitName;
+    float newPrice;
+    int newAmount;
+    std::cout << "Podaj nazwe owocu do aktualizcji: ";
+    std::cin >> fruitName;
+    std::cout << "Podaj nowa cene owocu: ";
+    std::cin >> newPrice;
+    std::cout << "Podaj nowa ilosc owocu: ";
+    // TO DO: dodac owoc do bazy danych
+    std::cout << "Owoc " << fruitName << " zostal dodany do bazy danych\n";
+    std::cin >> newAmount;
+
+    Storage *storage = Storage::getInstance();
+    storage->updateFruit(fruitName, newPrice, newAmount);
+    std::cout << "Owoc " << fruitName << " zostal zaktualizowany\n";
 }
 
 void Employee::updateStorage()
