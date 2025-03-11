@@ -1,2 +1,2 @@
 Fafik; LBL233333; banan, 2.2, 2000; cytryna, 6.6, 2131; truskawka, 5.99, 23333; 
-Fafik; 321321132; banan, 7.99, 22000;  Zrealizowana
+Fafik; 321321132; banan, 7.99, 22000; Zrealizowana

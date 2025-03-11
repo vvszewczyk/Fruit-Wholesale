@@ -252,7 +252,7 @@ void Employee::realizeDelivery()
         }
     }
 
-    deliveries[targetIndex] += " Zrealizowana";
+    deliveries[targetIndex] += "Zrealizowana";
 
     std::ofstream outfile("deliveries.txt", std::ios::trunc);
     for (const auto &line : deliveries)
