@@ -129,7 +129,7 @@ bool customerCondition(std::string login, std::string password, bool logged, Dat
             switch (customerPrompt)
             {
             case 1: {
-                std::cout << "DOSTĘPNE OWOCE (Nazwa, cena, ilosc):\n";
+                std::cout << "DOSTEPNE OWOCE (Nazwa, cena, ilosc):\n";
                 storage->showStorage();
 
                 Order newOrder;
@@ -267,6 +267,7 @@ bool employeeCondition(std::string login, std::string password, bool logged, Dat
             std::cout << "3. Aktualizacja danych o owocach\n";
             std::cout << "4. Zarzadzanie magazynem (dodaj/usun owoc)\n";
             std::cout << "5. Realizacja dostawy\n";
+            std::cout << "6. Wyswietl wszystkie zamowienia\n";
             std::cout << "Inna opcja - wyjdz z systemu\n";
 
             int option;
@@ -291,6 +292,10 @@ bool employeeCondition(std::string login, std::string password, bool logged, Dat
             }
             case 5: {
                 pracownik.realizeDelivery();
+                break;
+            }
+            case 6: {
+                Order::showAllOrders("orders.txt");
                 break;
             }
             default: {
