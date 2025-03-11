@@ -13,12 +13,19 @@ void Employee::considerReturn()
     std::cin >> orderID;
     Storage *storage = Storage::getInstance();
 
-    if (!storage->isInStorage(orderID))
+    if (!Order::isOrderExists("orders.txt", orderID))
     {
         std::cout << "Zamowienie o ID: " << orderID << " nie istnieje.";
     }
+
     Order order;
-    order.updateState(getLogin(), orderID, "Zwrot");
+    if (!(order.getStatus() == "Zwrot"))
+    {
+        std::cout << "Zamowienie o ID: " << orderID << " nie jest przeznaczone do zwrotu.\n";
+        return;
+    }
+
+    order.updateState(orderID, "Zwrot");
     std::cout << "Zamowienie " << orderID << " zosta³o oznaczone jako zwrot.\n";
 }
 
@@ -27,16 +34,31 @@ void Employee::realizeOrder()
     std::string orderID;
     std::cout << "Podaj numer zamowienia do realizacji: ";
     std::cin >> orderID;
-    Storage *storage = Storage::getInstance();
 
-    if (!storage->isInStorage(orderID))
+    if (!Order::isOrderExists("orders.txt", orderID))
     {
         std::cout << "Zamowienie o ID: " << orderID << " nie istnieje.";
         return;
     }
 
     Order order;
-    order.updateState(getLogin(), orderID, "Zrealizowane");
+    if (order.getStatus() == "Zrealizowane")
+    {
+        std::cout << "Zamowienie o ID: " << orderID << " zostalo ju¿ zrealizowane.\n";
+        return;
+    }
+    else if (order.getStatus() == "Zwrot")
+    {
+        std::cout << "Zamowienie o ID: " << orderID << " zostalo zwrócone.\n";
+        return;
+    }
+    else if (order.getStatus() == "Anulowane")
+    {
+        std::cout << "Zamowienie o ID: " << orderID << " zostalo anulowane.\n";
+        return;
+    }
+
+    order.updateState(orderID, "Zrealizowane");
     std::cout << "Zamowienie " << orderID << " zostalo zrealizowane\n";
 }
 

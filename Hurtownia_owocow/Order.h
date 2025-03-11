@@ -15,7 +15,7 @@ class Order
     Order(float cost = 0, std::string status = "Skladane");
     std::string getorderID();
     std::string getStatus();
-    void updateState(const std::string &login, const std::string &orderId, const std::string &newStatus);
+    void updateState(const std::string &orderId, const std::string &newStatus);
     float getTotalCost();
     void generateOrderID();
     void addToOrder(std::string name, int amount, Storage *storage);
@@ -25,4 +25,5 @@ class Order
     std::string trim(const std::string &str);
     void readOrder(const std::string &login, const std::string &orderId);
     static void showAllOrders(const std::string &filename);
+    static bool isOrderExists(const std::string &filename, const std::string &orderId);
 };

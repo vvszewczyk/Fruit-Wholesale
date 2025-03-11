@@ -1,5 +1,5 @@
 Dorek; HU2456114; Skladane; 69.6; [jablko, 1.99, 2; pomarancza, 7.42, 4; truskawka, 11.98, 3; ]
-Dorek; HU1383249; Skladane; 3382.06; [cytryna, 2.22, 1000; truskawka, 11.98, 97; ]
+Dorek; HU1383249; Zrealizowane;   3382.06; [cytryna, 2.22, 1000; truskawka, 11.98, 97; ]
 Dorek; HU9007657; Skladane; 1369.74; [banan, 6.5, 100; pomarancza, 7.42, 97; ]
 Cosnek; HU2747861; Skladane; 16091.6; [banan, 6.5, 100; cytryna, 2.22, 1000; jablko, 1.99, 1001; kiwi, 6.99, 100; liczi, 2.12, 100; pomarancza, 7.42, 99; truskawka, 11.98, 800; ]
 Cosnek; HU1871096; Skladane; 69.9; [kiwi, 6.99, 10; ]

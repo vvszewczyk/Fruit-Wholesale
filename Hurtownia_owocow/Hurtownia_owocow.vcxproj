@@ -34,7 +34,7 @@
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="Employee.cpp" />
     <ClCompile Include="Fruit.cpp" />
-    <ClCompile Include="Hurtownia_owocow.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Order.cpp" />
     <ClCompile Include="Payment.cpp" />
     <ClCompile Include="Person.cpp" />

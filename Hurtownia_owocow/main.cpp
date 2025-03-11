@@ -216,7 +216,7 @@ bool customerCondition(std::string login, std::string password, bool logged, Dat
                 std::cin >> orderId;
                 Order oldOrder;
                 oldOrder.readOrder(login, orderId);
-                oldOrder.updateState(login, orderId, "Zwrot");
+                oldOrder.updateState(orderId, "Zwrot");
                 oldOrder.readOrder(login, orderId);
                 oldOrder.showOrder();
 

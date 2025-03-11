@@ -205,7 +205,7 @@ void Order::readOrder(const std::string &login, const std::string &orderId)
     file.close();
 }
 
-void Order::updateState(const std::string &login, const std::string &orderId, const std::string &newStatus)
+void Order::updateState(const std::string &orderId, const std::string &newStatus)
 {
     std::ifstream fileIn("orders.txt");
     std::stringstream bufor;
@@ -220,18 +220,19 @@ void Order::updateState(const std::string &login, const std::string &orderId, co
     // Odczytuj i modyfikuj linie pliku
     while (getline(fileIn, line))
     {
-        std::string currentLogin, currentOrderId, currentStatus;
         std::stringstream lineStream(line);
+        std::string currentLogin, currentOrderId, currentStatus;
         getline(lineStream, currentLogin, ';');
-        currentLogin = trim(currentLogin);
         lineStream.ignore(1);
         getline(lineStream, currentOrderId, ';');
-        currentOrderId = trim(currentOrderId);
+        currentOrderId.erase(0, currentOrderId.find_first_not_of(" \t"));
+        currentOrderId.erase(currentOrderId.find_last_not_of(" \t") + 1);
         lineStream.ignore(1);
         getline(lineStream, currentStatus, ';');
-        currentStatus = trim(currentStatus);
+        currentStatus.erase(0, currentStatus.find_first_not_of(" \t"));
+        currentStatus.erase(currentStatus.find_last_not_of(" \t") + 1);
 
-        if (currentLogin == login && currentOrderId == orderId)
+        if (currentOrderId == orderId)
         {
             // Znaleziono odpowiednie zamówienie, zmień jego status
             std::string resztaLinii;
@@ -240,7 +241,6 @@ void Order::updateState(const std::string &login, const std::string &orderId, co
         }
         else
         {
-            // Pozostaw linie bez zmian
             bufor << line << std::endl;
         }
     }
@@ -270,7 +270,41 @@ void Order::showAllOrders(const std::string &filename)
     std::string line;
     while (getline(file, line))
     {
-        std::cout << line << std::endl;
+        if ()
+            std::cout << line << std::endl;
     }
     file.close();
+}
+
+// sprawdzenie czy zamowienie o danym id istnieje
+bool Order::isOrderExists(const std::string &filename, const std::string &orderId)
+{
+    std::ifstream file(filename);
+    if (!file.is_open())
+    {
+        std::cerr << "Nie mozna otworzyc pliku do odczytu." << std::endl;
+        return false;
+    }
+    std::string line;
+    while (getline(file, line))
+    {
+        // Format: login; orderID; status; totalCost; [szczegóły]
+        std::stringstream ss(line);
+        std::string currentLogin, currentOrderId;
+        getline(ss, currentLogin, ';');
+        ss.ignore(1);
+        getline(ss, currentOrderId, ';');
+
+        // Usuń białe znaki z loginu i id zamówienia
+        currentOrderId.erase(0, currentOrderId.find_first_not_of(" \t"));
+        currentOrderId.erase(currentOrderId.find_last_not_of(" \t") + 1);
+
+        if (currentOrderId == orderId)
+        {
+            file.close();
+            return true;
+        }
+    }
+    file.close();
+    return false;
 }
