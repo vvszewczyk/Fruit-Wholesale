@@ -1,6 +1,10 @@
 #include "Employee.h"
 #include "Order.h"
+#include "Storage.h"
+#include <fstream>
 #include <iostream>
+#include <sstream>
+#include <vector>
 
 Employee::Employee(std::string l, std::string h) : Person(std::move(l), std::move(h))
 {
@@ -132,40 +136,130 @@ void Employee::updateStorage()
     }
 }
 
+std::string trim(const std::string &str)
+{
+    size_t first = str.find_first_not_of(" \t");
+    if (first == std::string::npos)
+        return "";
+    size_t last = str.find_last_not_of(" \t");
+    return str.substr(first, (last - first + 1));
+}
+
 void Employee::realizeDelivery()
 {
     std::string deliveryID;
     std::cout << "Podaj ID dostawy: ";
     std::cin >> deliveryID;
 
-    int numFruits;
-    std::cout << "Ile roznych owocow w dostawie?: ";
-    std::cin >> numFruits;
+    // Wczytujemy wszystkie linie z deliveries.txt
+    std::ifstream infile("deliveries.txt");
+    if (!infile.is_open())
+    {
+        std::cerr << "Nie mozna otworzyc pliku deliveries.txt" << std::endl;
+        return;
+    }
+    std::vector<std::string> deliveries;
+    std::string line;
+    bool found = false;
+    bool alreadyRealized = false;
+    int targetIndex = -1;
+    for (int i = 0; getline(infile, line); i++)
+    {
+        deliveries.push_back(line);
+        std::stringstream ss(line);
+        std::string supplierLogin, dID, fruitData;
+        getline(ss, supplierLogin, ';');
+        ss.ignore(1);
+        getline(ss, dID, ';');
+        dID = trim(dID);
+
+        if (dID == deliveryID)
+        {
+            found = true;
+            if (line.find("Zrealizowana") != std::string::npos)
+            {
+                alreadyRealized = true;
+            }
+            targetIndex = i;
+        }
+    }
+    infile.close();
+
+    if (!found)
+    {
+        std::cout << "Dostawa o ID: " << deliveryID << " nie istnieje." << std::endl;
+        return;
+    }
+    if (alreadyRealized)
+    {
+        std::cout << "Dostawa o ID: " << deliveryID << " zostala juz zrealizowana." << std::endl;
+        return;
+    }
+
+    // supplierLogin; deliveryID; fruit1, price, amount; fruit2, price, amount; ... ; (flaga)
+    std::string deliveryLine = deliveries[targetIndex];
+    std::stringstream ss(deliveryLine);
+    std::string supplierLogin, dID;
+    getline(ss, supplierLogin, ';');
+    ss.ignore(1);
+    getline(ss, dID, ';');
+
+    std::vector<std::string> fruitTokens;
+    std::string token;
+    while (getline(ss, token, ';'))
+    {
+        token = trim(token);
+        if (!token.empty())
+            fruitTokens.push_back(token);
+    }
+    // Jeœli ostatni token to "Zrealizowana" (lub zawiera tê frazê), usuwamy go z listy
+    if (!fruitTokens.empty() && fruitTokens.back().find("Zrealizowana") != std::string::npos)
+    {
+        fruitTokens.pop_back();
+    }
 
     Storage *storage = Storage::getInstance();
 
-    for (int i = 0; i < numFruits; ++i)
+    // "fruitName, price, amount"
+    for (auto &ft : fruitTokens)
     {
-        std::string name;
-        float price;
-        int amount;
-        std::cout << "Owoc " << i + 1 << ":\n";
-        std::cout << "Nazwa: ";
-        std::cin >> name;
-        std::cout << "Cena: ";
-        std::cin >> price;
-        std::cout << "Ilosc: ";
-        std::cin >> amount;
+        std::stringstream fruitSS(ft);
+        std::string fruitName, priceStr, amountStr;
+        getline(fruitSS, fruitName, ',');
+        getline(fruitSS, priceStr, ',');
+        getline(fruitSS, amountStr, ',');
+        fruitName = trim(fruitName);
+        float newPrice = std::stof(trim(priceStr));
+        int amount = std::stoi(trim(amountStr));
 
-        if (storage->isInStorage(name))
+        if (storage->isInStorage(fruitName))
         {
-            storage->updateFruit(name, price, storage->getAmount(name) + amount);
+            float currentPrice = storage->getPrice(fruitName);
+            int currentAmount = storage->getAmount(fruitName);
+            if (currentPrice != newPrice)
+            {
+                std::cout << "Cena owocu " << fruitName << " rozni siê (magazyn: " << currentPrice
+                          << ", dostawa: " << newPrice << "). Podaj nowa cene: ";
+                float updatedPrice;
+                std::cin >> updatedPrice;
+                newPrice = updatedPrice;
+            }
+            storage->updateFruit(fruitName, newPrice, currentAmount + amount);
         }
         else
         {
-            storage->addFruit(name, price, amount);
+            storage->addFruit(fruitName, newPrice, amount);
         }
-
-        std::cout << "Dostawa zostala zrealizowana\n";
     }
+
+    deliveries[targetIndex] += " Zrealizowana";
+
+    std::ofstream outfile("deliveries.txt", std::ios::trunc);
+    for (const auto &line : deliveries)
+    {
+        outfile << line << std::endl;
+    }
+    outfile.close();
+
+    std::cout << "Dostawa zosta³a zrealizowana i magazyn zaktualizowany." << std::endl;
 }
