@@ -1,5 +1,5 @@
 cytryna, 6.6, 16731;
-banan, 2.2, 22000;
+banan, 7.99, 44000;
 jablko, 1.99, 440;
 pomarancza, 7.42, 3500;
 truskawka, 5.99, 36313;
