@@ -3,6 +3,8 @@
 
 class Supplier : public Person
 {
-public:
+  public:
     Supplier(std::string l, std::string h);
+    void registerDelivery();
+    void showDeliveryHistory();
 };

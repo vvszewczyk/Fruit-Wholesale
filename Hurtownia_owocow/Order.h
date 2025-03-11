@@ -24,6 +24,6 @@ class Order
     void addOrder(const std::string &filename, const std::string &login) const;
     std::string trim(const std::string &str);
     void readOrder(const std::string &login, const std::string &orderId);
-    static void showAllOrders(const std::string &filename);
+    static void showAllOrders(const std::string &filename, const std::string &loginFilter = "");
     static bool isOrderExists(const std::string &filename, const std::string &orderId);
 };

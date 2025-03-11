@@ -258,7 +258,7 @@ void Order::updateState(const std::string &orderId, const std::string &newStatus
 }
 
 // wyswietlenie wszystkich zamowien z pliku
-void Order::showAllOrders(const std::string &filename)
+void Order::showAllOrders(const std::string &filename, const std::string &loginFilter)
 {
     std::ifstream file(filename);
     if (!file.is_open())
@@ -266,12 +266,23 @@ void Order::showAllOrders(const std::string &filename)
         std::cerr << "Nie mozna otworzyc pliku do odczytu." << std::endl;
         return;
     }
-    std::cout << "\n--- Wszystkie zamówienia ---\n";
+    std::cout << "\n--- Zamówienia ---\n";
     std::string line;
     while (getline(file, line))
     {
-        if ()
-            std::cout << line << std::endl;
+        std::stringstream ss(line);
+        std::string currentLogin;
+        getline(ss, currentLogin, ';');
+
+        currentLogin.erase(0, currentLogin.find_first_not_of(" \t"));
+        currentLogin.erase(currentLogin.find_last_not_of(" \t") + 1);
+
+        if (!loginFilter.empty() && currentLogin != loginFilter)
+        {
+            continue;
+        }
+
+        std::cout << line << std::endl;
     }
     file.close();
 }

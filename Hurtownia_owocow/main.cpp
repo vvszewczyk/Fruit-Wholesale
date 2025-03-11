@@ -211,6 +211,8 @@ bool customerCondition(std::string login, std::string password, bool logged, Dat
             }
             case 2: {
                 std::cout << "ZWROT ZAMOWIENIA \n";
+                std::cout << "Twoje zamowienia: \n";
+                Order::showAllOrders("orders.txt", login);
                 std::cout << "Podaj numer zamowienia: \n";
                 std::string orderId;
                 std::cin >> orderId;
