@@ -334,25 +334,37 @@ bool supplierCondition(std::string login, std::string password, bool logged, Dat
     if (database->isSupplierExists(login, password))
     {
         Supplier dostawca = database->loginSupplier(login, password);
-        std::cout << "System niedokończony\n";
-        // Tu dodaj działania dla dostawcy
-        logged = false;
+        bool session = true;
+        while (session)
+        {
+            std::cout << "\n--- Menu Dostawcy ---\n";
+            std::cout << "1. Zarejestruj nową dostawę\n";
+            std::cout << "2. Wyświetl historię dostaw\n";
+            std::cout << "Inna opcja - wyjście z systemu\n";
+            int option;
+            std::cin >> option;
+            switch (option)
+            {
+            case 1:
+                dostawca.registerDelivery();
+                break;
+            case 2:
+                dostawca.showDeliveryHistory();
+                break;
+            default:
+                session = false;
+                logged = false;
+                break;
+            }
+        }
     }
     else
     {
-        std::cout << "Bledne dane, chcesz sprobowac ponownie?\n";
-        std::cout << "1 - tak, cokolwiek innego znaczy, ze nie :(\n";
+        std::cout << "Błędne dane, chcesz spróbować ponownie?\n";
+        std::cout << "1 - tak, cokolwiek innego znaczy, że nie :(\n";
         bool opt = false;
         std::cin >> opt;
-
-        if (opt == 1)
-        {
-            logged = true;
-        }
-        else
-        {
-            logged = false;
-        }
+        logged = (opt == 1);
     }
 
     return logged;
