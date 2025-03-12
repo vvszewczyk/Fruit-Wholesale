@@ -17,7 +17,7 @@
 #include "Storage.h"
 #include "Supplier.h"
 
-// Inicjalizacja statycznych wskaźników
+// Inicjalizacja statycznych wskaznikow
 Database *Database::database = nullptr;
 Storage *Storage::storage = nullptr;
 
@@ -40,7 +40,7 @@ int main()
     // Uruchomienie aplikacji
     runApplication(database, storage);
 
-    std::cout << "Thank you and see you again :)" << std::endl;
+    std::cout << "Dziekuje i do zobaczenia :)" << std::endl;
     return 0;
 }
 
@@ -49,12 +49,12 @@ void runApplication(Database *database, Storage *storage)
     bool appRunning = true;
     while (appRunning)
     {
-        std::cout << "\n========== MAIN MENU ==========\n";
-        std::cout << "1: Customer\n";
-        std::cout << "2: Employee\n";
-        std::cout << "3: Supplier\n";
-        std::cout << "4: Exit\n";
-        std::cout << "Select an option: ";
+        std::cout << "\n========== MENU GLOWNE ==========\n";
+        std::cout << "1: Klient\n";
+        std::cout << "2: Pracownik\n";
+        std::cout << "3: Dostawca\n";
+        std::cout << "4: Wyjscie\n";
+        std::cout << "Wybierz opcje: ";
         int option;
         std::cin >> option;
         switch (option)
@@ -72,7 +72,7 @@ void runApplication(Database *database, Storage *storage)
             appRunning = false;
             break;
         default:
-            std::cout << "Invalid selection. Please try again.\n";
+            std::cout << "Niepoprawny wybor. Sprobuj ponownie.\n";
             break;
         }
     }
@@ -80,10 +80,10 @@ void runApplication(Database *database, Storage *storage)
 
 void enterCredentials(std::string &login, std::string &password)
 {
-    std::cout << "\n--- Login ---\n";
-    std::cout << "Enter login: ";
+    std::cout << "\n--- Logowanie ---\n";
+    std::cout << "Podaj login: ";
     std::cin >> login;
-    std::cout << "Enter password: ";
+    std::cout << "Podaj haslo: ";
     std::cin >> password;
     std::cout << std::endl;
 }
@@ -92,8 +92,8 @@ void handleCustomer(Database *database, Storage *storage)
 {
     bool sessionActive = true;
     std::string login, password;
-    std::cout << "\n--- Customer Login ---\n";
-    std::cout << "Do you want to create a new account? (1: Yes / 0: No): ";
+    std::cout << "\n--- Logowanie Klienta ---\n";
+    std::cout << "Czy chcesz utworzyc nowe konto? (1: Tak / 0: Nie): ";
     int createAccount;
     std::cin >> createAccount;
     if (createAccount == 1)
@@ -105,23 +105,23 @@ void handleCustomer(Database *database, Storage *storage)
     enterCredentials(login, password);
     if (!database->isCustomerExists(login, password))
     {
-        std::cout << "Invalid login credentials.\n";
+        std::cout << "Niepoprawne dane logowania.\n";
         return;
     }
     Customer klient = database->loginCustomer(login, password);
     while (sessionActive)
     {
-        std::cout << "\n--- Customer Menu ---\n";
-        std::cout << "1. Place an Order\n";
-        std::cout << "2. Request Order Return\n";
-        std::cout << "3. Log Out\n";
-        std::cout << "Select an option: ";
+        std::cout << "\n--- Menu Klienta ---\n";
+        std::cout << "1. Zloz zamowienie\n";
+        std::cout << "2. Zglos zwrot zamowienia\n";
+        std::cout << "3. Wyloguj sie\n";
+        std::cout << "Wybierz opcje: ";
         int choice;
         std::cin >> choice;
         switch (choice)
         {
         case 1: {
-            std::cout << "\nAvailable Fruits (Name, Price, Quantity):\n";
+            std::cout << "\nDostepne owoce (Nazwa, Cena, Ilosc):\n";
             storage->showStorage();
 
             Order newOrder;
@@ -131,27 +131,27 @@ void handleCustomer(Database *database, Storage *storage)
             {
                 std::string fruitName;
                 int amount;
-                std::cout << "\nEnter fruit name: ";
+                std::cout << "\nPodaj nazwe owocu: ";
                 std::cin >> fruitName;
                 if (!storage->isInStorage(fruitName))
                 {
-                    std::cout << "Fruit not available.\n";
+                    std::cout << "Owoc niedostepny.\n";
                     continue;
                 }
-                std::cout << "Enter quantity (max " << storage->getAmount(fruitName) << "): ";
+                std::cout << "Podaj ilosc (maksymalnie " << storage->getAmount(fruitName) << "): ";
                 std::cin >> amount;
                 newOrder.addToOrder(fruitName, amount, storage);
                 storage->updateFruit(fruitName, storage->getPrice(fruitName), storage->getAmount(fruitName) - amount);
-                std::cout << "Continue shopping? (1: Yes / 0: No): ";
+                std::cout << "Kontynuowac zakupy? (1: Tak / 0: Nie): ";
                 int cont;
                 std::cin >> cont;
                 ordering = (cont == 1);
             }
             newOrder.showOrder();
-            std::cout << "\nSelect a payment method:\n";
-            std::cout << "1. Bank Transfer\n";
-            std::cout << "2. Card Payment\n";
-            std::cout << "Any other option cancels the order\n";
+            std::cout << "\nWybierz metode platnosci:\n";
+            std::cout << "1. Przelew bankowy\n";
+            std::cout << "2. Platnosc karta\n";
+            std::cout << "Inna opcja powoduje anulowanie zamowienia\n";
             int paymentChoice;
             std::cin >> paymentChoice;
             bool paymentSuccess = false;
@@ -164,7 +164,7 @@ void handleCustomer(Database *database, Storage *storage)
                 paymentSuccess = Payment::processPayment(newOrder, "card");
                 break;
             default:
-                std::cout << "Order cancelled.\n";
+                std::cout << "Zamowienie anulowane.\n";
                 newOrder.cancelOrder(*storage);
                 break;
             }
@@ -174,14 +174,14 @@ void handleCustomer(Database *database, Storage *storage)
             }
             else
             {
-                std::cout << "Payment failed, order cancelled.\n";
+                std::cout << "Platnosc nieudana, zamowienie anulowane.\n";
             }
             break;
         }
         case 2: {
-            std::cout << "\n--- Order Return ---\n";
+            std::cout << "\n--- Zwrot zamowienia ---\n";
             Order::showAllOrders("orders.txt", login);
-            std::cout << "Enter the order number for return: ";
+            std::cout << "Podaj numer zamowienia do zwrotu: ";
             std::string orderId;
             std::cin >> orderId;
             Order oldOrder;
@@ -189,7 +189,7 @@ void handleCustomer(Database *database, Storage *storage)
             oldOrder.updateState(orderId, "Zwrot");
             oldOrder.readOrder(login, orderId);
             oldOrder.showOrder();
-            std::cout << "\nZamówienie " << orderId << " zostanie wkrótce zwrócone.\n";
+            std::cout << "\nZamowienie " << orderId << " zostanie wkrotce zwrocone.\n";
             break;
         }
         case 3:
@@ -204,25 +204,25 @@ void handleEmployee(Database *database, Storage *storage)
 {
     bool sessionActive = true;
     std::string login, password;
-    std::cout << "\n--- Employee Login ---\n";
+    std::cout << "\n--- Logowanie Pracownika ---\n";
     enterCredentials(login, password);
     if (!database->isEmployeeExists(login, password))
     {
-        std::cout << "Invalid login credentials.\n";
+        std::cout << "Niepoprawne dane logowania.\n";
         return;
     }
     Employee pracownik = database->loginEmployee(login, password);
     while (sessionActive)
     {
-        std::cout << "\n--- Employee Menu ---\n";
-        std::cout << "1. Process Order\n";
-        std::cout << "2. Process Return\n";
-        std::cout << "3. Update Fruit Data\n";
-        std::cout << "4. Manage Storage (add/remove/update fruit)\n";
-        std::cout << "5. Process Delivery\n";
-        std::cout << "6. Show All Orders\n";
-        std::cout << "7. Log Out\n";
-        std::cout << "Select an option: ";
+        std::cout << "\n--- Menu Pracownika ---\n";
+        std::cout << "1. Realizuj zamowienie\n";
+        std::cout << "2. Przetworz zwrot\n";
+        std::cout << "3. Aktualizuj dane owocow\n";
+        std::cout << "4. Zarzadzaj magazynem (dodaj/usun/aktualizuj owoc)\n";
+        std::cout << "5. Realizuj dostawa\n";
+        std::cout << "6. Pokaz wszystkie zamowienia\n";
+        std::cout << "7. Wyloguj sie\n";
+        std::cout << "Wybierz opcje: ";
         int choice;
         std::cin >> choice;
         switch (choice)
@@ -257,21 +257,21 @@ void handleSupplier(Database *database, Storage *storage)
 {
     bool sessionActive = true;
     std::string login, password;
-    std::cout << "\n--- Supplier Login ---\n";
+    std::cout << "\n--- Logowanie Dostawcy ---\n";
     enterCredentials(login, password);
     if (!database->isSupplierExists(login, password))
     {
-        std::cout << "Invalid login credentials.\n";
+        std::cout << "Niepoprawne dane logowania.\n";
         return;
     }
     Supplier dostawca = database->loginSupplier(login, password);
     while (sessionActive)
     {
-        std::cout << "\n--- Supplier Menu ---\n";
-        std::cout << "1. Register New Delivery\n";
-        std::cout << "2. Show Delivery History\n";
-        std::cout << "3. Log Out\n";
-        std::cout << "Select an option: ";
+        std::cout << "\n--- Menu Dostawcy ---\n";
+        std::cout << "1. Zarejestruj nowa dostawke\n";
+        std::cout << "2. Pokaz historie dostaw\n";
+        std::cout << "3. Wyloguj sie\n";
+        std::cout << "Wybierz opcje: ";
         int choice;
         std::cin >> choice;
         switch (choice)

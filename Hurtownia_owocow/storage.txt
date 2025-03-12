@@ -2,6 +2,6 @@ cytryna, 6.6, 16731;
 banan, 7.99, 44000;
 jablko, 1.99, 440;
 pomarancza, 7.42, 3500;
-truskawka, 5.99, 36313;
+truskawka, 5.99, 35313;
 kiwi, 6.99, 1780;
 liczi, 2.12, 1800;
