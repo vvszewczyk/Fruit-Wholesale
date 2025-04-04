@@ -16,7 +16,7 @@ pipeline
             steps
             {
                 echo "Running tests..."
-                sh '''docker run --name my_test_run --rm my_builder_image ./run_tests.sh'''
+                sh '''docker run --name my_test_run --rm my_builder_image ./fruit_test'''
             }
         }
         stage('Archive logs') 
