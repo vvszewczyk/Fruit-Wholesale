@@ -8,10 +8,7 @@ pipeline
             steps
             {
                 echo "Building project in container..."
-                sh 
-                '''
-                  docker build -t my_builder_image -f Dockerfile.build .
-                ''' 
+                sh '''docker build -t my_builder_image -f Dockerfile.build .'''
             }
         }
         stage('Test')
@@ -19,10 +16,7 @@ pipeline
             steps
             {
                 echo "Running tests..."
-                sh 
-                '''
-                  docker run --name my_test_run --rm my_builder_image ./run_tests.sh
-                '''
+                sh '''docker run --name my_test_run --rm my_builder_image ./run_tests.sh'''
             }
         }
         stage('Archive logs') 
