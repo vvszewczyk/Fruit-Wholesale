@@ -16,7 +16,7 @@ pipeline
             steps
             {
                 echo "Running tests..."
-                sh '''docker run --name my_test_run --rm my_builder_image ./fruit_test'''
+                sh '''mkdir -p logs && docker run --name my_test_run --rm -v ${WORKSPACE}/logs:/logs my_builder_image ./fruit_test'''
             }
         }
         stage('Archive logs') 
