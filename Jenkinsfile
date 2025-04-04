@@ -11,16 +11,16 @@ pipeline
                 sh '''docker build -t my_builder_image -f Dockerfile.build .'''
             }
         }
-        stage('Test')
+        stage('Test') 
         {
-            steps
+            steps 
             {
                 echo "Running tests..."
                 sh '''
                   mkdir -p /tmp/logs && \
-                  docker run --name my_test_run --rm -v /tmp/logs:/logs my_builder_image ./fruit_test && \
-                  cp -r /tmp/logs ${WORKSPACE}/logs || true
+                  docker run --name my_test_run --rm -v /tmp/logs:/logs my_builder_image sh -c "./fruit_test > /logs/test.log"
                 '''
+                sh 'cp -r /tmp/logs ${WORKSPACE}/logs'
             }
         }
         stage('Archive logs') 
