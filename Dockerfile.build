@@ -1,0 +1,36 @@
+FROM gcc:latest
+
+RUN apt-get update && apt-get install -y \
+    git \
+    build-essential \
+    cmake \
+    libgtest-dev
+
+
+RUN cd /usr/src/googletest && \
+    cmake CMakeLists.txt && \
+    make && \
+    cp ./lib/*.a /usr/lib
+
+WORKDIR /app
+
+RUN git clone https://github.com/vvszewczyk/Fruit-Wholesale.git
+
+WORKDIR /app/Fruit-Wholesale
+
+RUN g++ \
+    Hurtownia_owocow/Customer.cpp \
+    Hurtownia_owocow/Person.cpp \
+    Hurtownia_owocow/Employee.cpp \
+    Hurtownia_owocow/Supplier.cpp \
+    Hurtownia_owocow/Fruit.cpp \
+    Hurtownia_owocow/Database.cpp \
+    Hurtownia_owocow/Storage.cpp \
+    Hurtownia_owocow/Order.cpp \
+    Hurtownia_owocow/Delivery.cpp \
+    Tests/gTests.cpp \
+    -o fruit_test \
+    -lgtest -lgtest_main -pthread
+
+
+CMD ["/bin/bash"]

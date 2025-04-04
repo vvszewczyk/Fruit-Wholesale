@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  builder:
+    build:
+      context: .
+      dockerfile: Dockerfile.build
+    image: fruit_builder_image
+
+  tester:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    image: fruit_tester_image
+    depends_on:
+      - builder

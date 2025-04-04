@@ -1,0 +1,3 @@
+FROM fruit_builder_image
+WORKDIR /app/Fruit-Wholesale
+CMD ["./fruit_test"]
