@@ -1,0 +1,12 @@
+FROM jenkins/jenkins:lts-jdk17
+
+USER root
+RUN apt-get update && apt-get install -y apt-transport-https ca-certificates curl gnupg2 && \
+    curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
+    echo "deb [arch=amd64] https://download.docker.com/linux/debian bookworm stable" > /etc/apt/sources.list.d/docker.list && \
+    apt-get update && apt-get install -y docker-ce-cli docker-compose && \
+    chmod 666 /var/run/docker.sock
+
+USER jenkins
+
+CMD ["jenkins"]
