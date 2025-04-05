@@ -165,3 +165,32 @@ Designed in **Visual Paradigm**.
 - Visual Studio (Project files are included in the repository, so just open the .sln or .vcxproj file).
 - Visual Paradigm (at least 17.2 version) if you want to open .vpp project file.
 - After cloning the repository, simply build and run from Visual Studio.
+
+---
+## CI/CD Pipeline & Jenkins Integration
+
+This project includes a CI/CD pipeline defined via Jenkins. The pipeline is designed to:
+
+1. **Build in a Container**:  
+   - The pipeline builds a Docker image named `my_builder_image` using the file `Dockerfile.build`.  
+   - This image contains all necessary dependencies (e.g., gcc, cmake, libgtest-dev) required to compile and test the application.
+
+2. **Test in a Container**:  
+   - The pipeline then runs tests inside a container created from the built image by executing the test executable (`fruit_test`).  
+   - Test results are captured from the standard output and saved as a log file (`test_output.log`).
+
+3. **Archive Logs**:  
+   - The captured log file is archived as a build artifact, allowing you to review which tests passed or failed.
+
+### Jenkins & DIND Configuration
+
+To enable Jenkins to perform containerized builds and tests, the Jenkins instance is run as a container with the Docker socket mounted. This setup gives Jenkins access to the host's Docker daemon. For example:
+
+```bash
+docker volume create jenkins_home
+docker build -t my-jenkins -f jenkins/Dockerfile.jenkins .
+docker run -d --name jenkins \
+  -p 8080:8080 -p 50000:50000 \
+  -v jenkins_home:/var/jenkins_home \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  my-jenkins
