@@ -28,8 +28,8 @@ pipeline
         {
             steps 
             {
-                echo "Archivizing logs..."
-                archiveArtifacts artifacts: 'logs/*.log', fingerprint: true
+                echo "Archiving logs..."
+                archiveArtifacts artifacts: 'test_output.log', fingerprint: true
             }
         }
     }
