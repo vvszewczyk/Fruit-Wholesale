@@ -8,4 +8,4 @@ RUN apt-get update && apt-get install -y apt-transport-https ca-certificates cur
 
 USER jenkins
 
-CMD ["jenkins"]
+CMD ["/usr/local/bin/jenkins.sh"]
