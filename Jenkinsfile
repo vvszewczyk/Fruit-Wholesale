@@ -32,5 +32,13 @@ pipeline
                 archiveArtifacts artifacts: 'test_output.log', fingerprint: true
             }
         }
+        stage('Check Custom Jenkins') 
+        {
+            steps 
+            {
+                echo "Verifying custom Jenkins image..."
+                sh "docker --version"
+            }
+        }
     }
 }
