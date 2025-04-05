@@ -16,7 +16,12 @@ pipeline
             steps 
             {
                 echo "Running tests..."
-                sh '''mkdir -p ${WORKSPACE}/logs && docker run --name my_test_run --rm -v ${WORKSPACE}/logs:/logs my_builder_image ./fruit_test > /logs/test.log 2>&1'''
+                script 
+                {
+                    def output = sh(script: "docker run --name my_test_run --rm my_builder_image ./fruit_test", returnStdout: true)
+                    echo "Captured test output:\n${output}"
+                    writeFile file: "test_output.log", text: output
+                }
             }
         }
         stage('Archive logs') 
