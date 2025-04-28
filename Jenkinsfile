@@ -5,7 +5,7 @@ pipeline
 	environment 
 	{
 		DEPLOY_TAG = "v1.0.${env.BUILD_NUMBER}"
-		IMAGE_NAME = "myrepo/fruit_deploy"
+		IMAGE_NAME = "vvszewczyk/fruit_deploy"
 	}
 	
     stages
