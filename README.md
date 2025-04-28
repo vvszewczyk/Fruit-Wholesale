@@ -14,6 +14,7 @@ Designed in **Visual Paradigm**.
 5. **Activity Diagram** – Shows the flow of operations, such as how a user’s request travels through the system.  
 6. **Component Diagram** – Visualizes the system’s structure in terms of software components.  
 7. **Deployment Diagram** – Represents how the system might be physically deployed on hardware or servers.
+8. **Communication Diagram** – Details the run‐time message flows between the key objects and services in your CI/CD pipeline.
 
 ## Use Case Diagram
 ![ucd](media/ucd.png)<br>
@@ -101,6 +102,13 @@ Designed in **Visual Paradigm**.
 ![c1](media/d1.png)<br>
 *Payment for order Activity Diagram*<br>
 
+![c1](media/d2.png)<br>
+*The communication diagram shows how a code push to GitHub triggers the Jenkins Pipeline (running in a Docker container on WSL2), which uses the host Docker daemon to spawn build and test containers that pull the repo, compile and run tests, archive logs back to Jenkins, build a versioned deploy image, and push it to Docker Hub.*
+
+## Communication Diagram
+![c1](media/com1.png)<br>
+*Key objects and services in CI/CD pipeline*<br>
+
 ## Key Features
 
 1. **Multiple User Roles**  
@@ -182,15 +190,35 @@ This project includes a CI/CD pipeline defined via Jenkins. The pipeline is desi
 3. **Archive Logs**:  
    - The captured log file is archived as a build artifact, allowing you to review which tests passed or failed.
 
-### Jenkins & DIND Configuration
+4. **Deploy Image**  
+   - Builds a slim “runtime” image (`Dockerfile.deploy`) by copying only the final `fruit_test` binary into a clean base (Ubuntu 22.04).  
+   - Tags each image with a semantic version derived from the Jenkins build number (`vvszewczyk/fruit_deploy:v1.0.${BUILD_NUMBER}`).
 
-To enable Jenkins to perform containerized builds and tests, the Jenkins instance is run as a container with the Docker socket mounted. This setup gives Jenkins access to the host's Docker daemon. For example:
+5. **Push to Docker Hub**  
+   - Uses Jenkins credentials (`docker-hub-creds`) to authenticate via `docker login`.  
+   - Pushes your versioned `vvszewczyk/fruit_deploy:v1.0.${BUILD_NUMBER}` to Docker Hub [CHECK IT HERE](https://hub.docker.com/repository/docker/vvszewczyk/fruit_deploy/general).
+
+6. **Smoke Test**  
+   - Immediately pulls the just-pushed image and reruns a minimal “smoke” test suite (e.g. one `SmokeTest.*` case) inside it to verify the container is self-contained and working.
+
+7. **Post-Build Notifications & Versioning**  
+   - On success, the pipeline echoes the deployed image tag.  
+   - All Dockerfiles (`Dockerfile.build`, `Dockerfile.deploy`, `Dockerfile.jenkins`) and the `Jenkinsfile` live next to your source—so anyone can reproduce the full CI/CD flow.
+
+### How to Stand Up Your Jenkins + DIND
 
 ```bash
-docker volume create jenkins_home
+# 1. Build your custom Jenkins with Docker CLI & Compose inside
 docker build -t my-jenkins -f jenkins/Dockerfile.jenkins .
+
+# 2. Create a volume for Jenkins home
+docker volume create jenkins_home
+
+# 3. Run Jenkins in Docker, mounting the host’s Docker socket
 docker run -d --name jenkins \
   -p 8080:8080 -p 50000:50000 \
   -v jenkins_home:/var/jenkins_home \
   -v /var/run/docker.sock:/var/run/docker.sock \
   my-jenkins
+# 4. Make sure that docker.sock has proper permissions
+sudo chmod 666 /var/run/docker.sock
