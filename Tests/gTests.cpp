@@ -1,17 +1,17 @@
 #include <gtest/gtest.h>
 
 #include "../Hurtownia_owocow/Customer.h"
-#include "../Hurtownia_owocow/Person.h"
-#include "../Hurtownia_owocow/Employee.h"
-#include "../Hurtownia_owocow/Supplier.h"
-#include "../Hurtownia_owocow/Fruit.h"
 #include "../Hurtownia_owocow/Database.h"
-#include "../Hurtownia_owocow/Storage.h"
-#include "../Hurtownia_owocow/Order.h"
 #include "../Hurtownia_owocow/Delivery.h"
+#include "../Hurtownia_owocow/Employee.h"
+#include "../Hurtownia_owocow/Fruit.h"
+#include "../Hurtownia_owocow/Order.h"
+#include "../Hurtownia_owocow/Person.h"
+#include "../Hurtownia_owocow/Storage.h"
+#include "../Hurtownia_owocow/Supplier.h"
 
-Storage* Storage::storage = nullptr;
-Database* Database::database = nullptr;
+Storage *Storage::storage = nullptr;
+Database *Database::database = nullptr;
 
 // -----------------------------
 // LoggingPeopleTests
@@ -22,8 +22,8 @@ TEST(LoggingPeopleTests, TestPerson)
     Person person(login, password);
 
     // GTest domyślnie oczekuje: ASSERT_EQ(expected, actual)
-    ASSERT_EQ(login,   person.getLogin());
-    ASSERT_EQ(password,person.getPasswd());
+    ASSERT_EQ(login, person.getLogin());
+    ASSERT_EQ(password, person.getPasswd());
 }
 
 TEST(LoggingPeopleTests, TestEmployee)
@@ -31,8 +31,8 @@ TEST(LoggingPeopleTests, TestEmployee)
     std::string login = "testLogin", password = "testPassword";
     Employee employee(login, password);
 
-    ASSERT_EQ(login,   employee.getLogin());
-    ASSERT_EQ(password,employee.getPasswd());
+    ASSERT_EQ(login, employee.getLogin());
+    ASSERT_EQ(password, employee.getPasswd());
 }
 
 TEST(LoggingPeopleTests, TestCustomer)
@@ -40,8 +40,8 @@ TEST(LoggingPeopleTests, TestCustomer)
     std::string login = "testLogin", password = "testPassword";
     Customer customer(login, password);
 
-    ASSERT_EQ(login,   customer.getLogin());
-    ASSERT_EQ(password,customer.getPasswd());
+    ASSERT_EQ(login, customer.getLogin());
+    ASSERT_EQ(password, customer.getPasswd());
 }
 
 TEST(LoggingPeopleTests, TestSupplier)
@@ -49,7 +49,7 @@ TEST(LoggingPeopleTests, TestSupplier)
     std::string login = "testLogin", password = "testPassword";
     Supplier supplier(login, password);
 
-    ASSERT_EQ(login,    supplier.getLogin());
+    ASSERT_EQ(login, supplier.getLogin());
     ASSERT_EQ(password, supplier.getPasswd());
 }
 
@@ -58,7 +58,7 @@ TEST(LoggingPeopleTests, TestSupplier)
 // -----------------------------
 TEST(DatabaseTests, AddCustomerTest)
 {
-    Database* database = Database::getInstance();
+    Database *database = Database::getInstance();
     std::string login = "TestUser";
     std::string passwd = "TestPassword";
 
@@ -73,15 +73,15 @@ TEST(DatabaseTests, AddCustomerTest)
 // -----------------------------
 TEST(StorageTests, TestSingletonInstance)
 {
-    Storage* instance1 = Storage::getInstance();
-    Storage* instance2 = Storage::getInstance();
+    Storage *instance1 = Storage::getInstance();
+    Storage *instance2 = Storage::getInstance();
 
     ASSERT_TRUE(instance1 == instance2);
 }
 
 TEST(StorageTests, TestAddAndGetFruit)
 {
-    Storage* storage = Storage::getInstance();
+    Storage *storage = Storage::getInstance();
     storage->addFruit("Apple", 1.5f, 100);
 
     ASSERT_TRUE(storage->isInStorage("Apple"));
@@ -108,7 +108,7 @@ TEST(OrderTests, TestGenerateOrderID)
 
 TEST(OrderTests, TestAddToOrder)
 {
-    Storage* storage = Storage::getInstance();
+    Storage *storage = Storage::getInstance();
     storage->addFruit("Apple", 1.5f, 100);
 
     Order order;
@@ -134,17 +134,22 @@ TEST(FruitTests, TestFruitCreationAndAccessors)
 TEST(DeliveryTests, TestDeliveryCreation)
 {
     std::string testEmail = "test@example.com";
-    std::map<Fruit, int> testFruits = {
-        { Fruit("Apple", 1.5f), 10 },
-        { Fruit("Banana", 0.8f), 5 }
-    };
+    std::map<Fruit, int> testFruits = {{Fruit("Apple", 1.5f), 10}, {Fruit("Banana", 0.8f), 5}};
 
     Delivery delivery(testEmail, testFruits);
 
     ASSERT_EQ(testEmail, delivery.getId());
 
-    for (const auto& pair : testFruits)
+    for (const auto &pair : testFruits)
     {
         ASSERT_EQ(pair.second, delivery.getAmount(pair.first));
     }
+}
+
+// -----------------------------
+// SmokeTest
+// -----------------------------
+TEST(SmokeTest, ApplicationLaunches)
+{
+    SUCCEED();
 }

@@ -1,5 +1,5 @@
 FROM my_builder_image AS runtime
-FROM my_builder_image      AS final
+FROM my_builder_image AS final
 
 COPY --from=runtime /app/Fruit-Wholesale/fruit_test /usr/local/bin/fruit_test
 ENTRYPOINT ["fruit_test"]

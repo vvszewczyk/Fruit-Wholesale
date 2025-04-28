@@ -65,7 +65,7 @@ pipeline
 			steps 
 			{
 				echo "Running smoke tests against deploy image..."
-				sh '''docker run --rm ${IMAGE_NAME}:${DEPLOY_TAG} ./fruit_test --gtest_filter=SmokeTest.*'''
+				sh '''docker run --rm ${IMAGE_NAME}:${DEPLOY_TAG} ./fruit_test --gtest_filter=OrderTests.TestGenerateOrderID'''
 			}
 		}
         stage('Check Custom Jenkins') 
