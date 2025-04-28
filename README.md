@@ -106,7 +106,7 @@ Designed in **Visual Paradigm**.
 *The communication diagram shows how a code push to GitHub triggers the Jenkins Pipeline (running in a Docker container on WSL2), which uses the host Docker daemon to spawn build and test containers that pull the repo, compile and run tests, archive logs back to Jenkins, build a versioned deploy image, and push it to Docker Hub.*
 
 ## Communication Diagram
-![c1](media/com1.png)<br>
+![c1](media/cc.png)<br>
 *Key objects and services in CI/CD pipeline*<br>
 
 ## Key Features
