@@ -205,20 +205,55 @@ This project includes a CI/CD pipeline defined via Jenkins. The pipeline is desi
    - On success, the pipeline echoes the deployed image tag.  
    - All Dockerfiles (`Dockerfile.build`, `Dockerfile.deploy`, `Dockerfile.jenkins`) and the `Jenkinsfile` live next to your source—so anyone can reproduce the full CI/CD flow.
 
-### How to Stand Up Your Jenkins + DIND
+## How to Stand Up Jenkins + DIND
 
+### Prerequisites on the **host**
+- **Docker** (20.10+) installed  
+- Ensure the Docker socket is writable by Jenkins:  
+  ```bash
+  sudo chmod 666 /var/run/docker.sock
+  ```  
+- Ports **8080** (Jenkins UI) and **50000** (agent TCP) free  
+
+### 1. Build your custom Jenkins image
 ```bash
-# 1. Build your custom Jenkins with Docker CLI & Compose inside
+git clone https://github.com/vvszewczyk/Fruit-Wholesale.git
+cd Fruit-Wholesale
 docker build -t my-jenkins -f jenkins/Dockerfile.jenkins .
+```
 
-# 2. Create a volume for Jenkins home
+### 2. Create a persistent Jenkins home volume
+```bash
 docker volume create jenkins_home
+```
 
-# 3. Run Jenkins in Docker, mounting the host’s Docker socket
+### 3. Run Jenkins (with host Docker socket mounted)
+```bash
 docker run -d --name jenkins \
   -p 8080:8080 -p 50000:50000 \
   -v jenkins_home:/var/jenkins_home \
   -v /var/run/docker.sock:/var/run/docker.sock \
   my-jenkins
-# 4. Make sure that docker.sock has proper permissions
-sudo chmod 666 /var/run/docker.sock
+```
+
+### 4. Perform initial setup
+1. Retrieve the admin password:  
+   ```bash
+   docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+   ```
+2. Open http://localhost:8080, enter that password, install suggested plugins.
+
+### 5. Add Docker Hub credentials
+- In **Jenkins → Credentials → System → Global**, add a **Username with password**:
+  - **ID:** `docker-hub-creds`  
+  - **Username:** `<your Docker Hub username>`  
+  - **Password:** `<your Docker Hub access token>`
+
+### 6. Create the Pipeline job
+1. **New Item** → **Pipeline**, name it.  
+2. Under **Pipeline → Definition** select **“Pipeline script from SCM”**:
+   - **SCM:** Git  
+   - **Repository URL:** `https://github.com/vvszewczyk/Fruit-Wholesale.git`  
+   - **Branch:** `main`  
+   - **Script Path:** `Jenkinsfile`  
+3. Save and **Build Now**.
