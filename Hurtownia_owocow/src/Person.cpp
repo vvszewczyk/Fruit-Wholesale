@@ -1,6 +1,8 @@
-#include "Person.h"
+#include "../include/Person.h"
 
-Person::Person(std::string l, std::string h) : login(l), password(h) {}
+Person::Person(std::string l, std::string h) : login(l), password(h)
+{
+}
 
 std::string Person::getLogin()
 {

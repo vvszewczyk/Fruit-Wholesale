@@ -1,2 +1,12 @@
-C:\Users\Wojtek\source\repos\Projektowanie oprogramowania\Hurtownia_owocow — kopia\Tests\pch.cpp;C:\Users\Wojtek\source\repos\Projektowanie oprogramowania\Hurtownia_owocow — kopia\Tests\x64\Debug\pch.obj
-C:\Users\Wojtek\source\repos\Projektowanie oprogramowania\Hurtownia_owocow — kopia\Tests\Tests.cpp;C:\Users\Wojtek\source\repos\Projektowanie oprogramowania\Hurtownia_owocow — kopia\Tests\x64\Debug\Tests.obj
+D:\Github\Fruit-Wholesale-s\Hurtownia_owocow\src\Customer.cpp;D:\Github\Fruit-Wholesale-s\Tests\x64\Debug\Customer.obj
+D:\Github\Fruit-Wholesale-s\Hurtownia_owocow\src\Database.cpp;D:\Github\Fruit-Wholesale-s\Tests\x64\Debug\Database.obj
+D:\Github\Fruit-Wholesale-s\Hurtownia_owocow\src\Delivery.cpp;D:\Github\Fruit-Wholesale-s\Tests\x64\Debug\Delivery.obj
+D:\Github\Fruit-Wholesale-s\Hurtownia_owocow\src\Employee.cpp;D:\Github\Fruit-Wholesale-s\Tests\x64\Debug\Employee.obj
+D:\Github\Fruit-Wholesale-s\Hurtownia_owocow\src\Fruit.cpp;D:\Github\Fruit-Wholesale-s\Tests\x64\Debug\Fruit.obj
+D:\Github\Fruit-Wholesale-s\Hurtownia_owocow\src\Order.cpp;D:\Github\Fruit-Wholesale-s\Tests\x64\Debug\Order.obj
+D:\Github\Fruit-Wholesale-s\Hurtownia_owocow\src\Payment.cpp;D:\Github\Fruit-Wholesale-s\Tests\x64\Debug\Payment.obj
+D:\Github\Fruit-Wholesale-s\Hurtownia_owocow\src\Person.cpp;D:\Github\Fruit-Wholesale-s\Tests\x64\Debug\Person.obj
+D:\Github\Fruit-Wholesale-s\Hurtownia_owocow\src\Storage.cpp;D:\Github\Fruit-Wholesale-s\Tests\x64\Debug\Storage.obj
+D:\Github\Fruit-Wholesale-s\Hurtownia_owocow\src\Supplier.cpp;D:\Github\Fruit-Wholesale-s\Tests\x64\Debug\Supplier.obj
+D:\Github\Fruit-Wholesale-s\Tests\pch.cpp;D:\Github\Fruit-Wholesale-s\Tests\x64\Debug\pch.obj
+D:\Github\Fruit-Wholesale-s\Tests\Tests.cpp;D:\Github\Fruit-Wholesale-s\Tests\x64\Debug\Tests.obj

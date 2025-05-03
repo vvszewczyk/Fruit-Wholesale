@@ -1,6 +1,6 @@
-#include "Employee.h"
-#include "Order.h"
-#include "Storage.h"
+#include "../include/Employee.h"
+#include "../include/Order.h"
+#include "../include/Storage.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>

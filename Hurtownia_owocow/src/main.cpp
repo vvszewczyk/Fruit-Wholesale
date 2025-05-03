@@ -6,16 +6,16 @@
 #include <sstream>
 #include <vector>
 
-#include "Customer.h"
-#include "Database.h"
-#include "Delivery.h"
-#include "Employee.h"
-#include "Fruit.h"
-#include "Order.h"
-#include "Payment.h"
-#include "Person.h"
-#include "Storage.h"
-#include "Supplier.h"
+#include "../include/Customer.h"
+#include "../include/Database.h"
+#include "../include/Delivery.h"
+#include "../include/Employee.h"
+#include "../include/Fruit.h"
+#include "../include/Order.h"
+#include "../include/Payment.h"
+#include "../include/Person.h"
+#include "../include/Storage.h"
+#include "../include/Supplier.h"
 
 // Inicjalizacja statycznych wskaznikow
 Database *Database::database = nullptr;

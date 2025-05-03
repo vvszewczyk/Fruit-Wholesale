@@ -19,32 +19,29 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Customer.h" />
-    <ClInclude Include="Database.h" />
-    <ClInclude Include="Employee.h" />
-    <ClInclude Include="Fruit.h" />
-    <ClInclude Include="Order.h" />
-    <ClInclude Include="Payment.h" />
-    <ClInclude Include="Person.h" />
-    <ClInclude Include="Storage.h" />
-    <ClInclude Include="Supplier.h" />
+    <ClInclude Include="include\Customer.h" />
+    <ClInclude Include="include\Database.h" />
+    <ClInclude Include="include\Delivery.h" />
+    <ClInclude Include="include\Employee.h" />
+    <ClInclude Include="include\Fruit.h" />
+    <ClInclude Include="include\Order.h" />
+    <ClInclude Include="include\Payment.h" />
+    <ClInclude Include="include\Person.h" />
+    <ClInclude Include="include\Storage.h" />
+    <ClInclude Include="include\Supplier.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Customer.cpp" />
-    <ClCompile Include="Database.cpp" />
-    <ClCompile Include="Employee.cpp" />
-    <ClCompile Include="Fruit.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Order.cpp" />
-    <ClCompile Include="Payment.cpp" />
-    <ClCompile Include="Person.cpp" />
-    <ClCompile Include="Storage.cpp" />
-    <ClCompile Include="Supplier.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="database.txt" />
-    <Text Include="orders.txt" />
-    <Text Include="storage.txt" />
+    <ClCompile Include="src\Customer.cpp" />
+    <ClCompile Include="src\Database.cpp" />
+    <ClCompile Include="src\Delivery.cpp" />
+    <ClCompile Include="src\Employee.cpp" />
+    <ClCompile Include="src\Fruit.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Order.cpp" />
+    <ClCompile Include="src\Payment.cpp" />
+    <ClCompile Include="src\Person.cpp" />
+    <ClCompile Include="src\Storage.cpp" />
+    <ClCompile Include="src\Supplier.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -132,6 +129,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)include
+</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

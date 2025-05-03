@@ -1,15 +1,14 @@
-#include "Database.h"
-#include <iostream>
+#include "../include/Database.h"
 #include <fstream>
+#include <iostream>
 #include <sstream>
 
-Database::Database()
-{
+Database::Database() {
     // TO DO
     // Push controll klients
 };
 
-Database* Database::getInstance()
+Database *Database::getInstance()
 {
     if (database == nullptr)
     {
@@ -20,7 +19,7 @@ Database* Database::getInstance()
 
 bool Database::isCustomerExists(std::string p, std::string c)
 {
-    for (auto& e : customers)
+    for (auto &e : customers)
     {
         if (e.getLogin() == p && e.getPasswd() == c)
         {
@@ -30,9 +29,9 @@ bool Database::isCustomerExists(std::string p, std::string c)
     return false;
 };
 
-bool Database::isEmployeeExists(std::string p, std::string c) 
+bool Database::isEmployeeExists(std::string p, std::string c)
 {
-    for (auto& e : employees)
+    for (auto &e : employees)
     {
         if (e.getLogin() == p && e.getPasswd() == c)
         {
@@ -42,9 +41,9 @@ bool Database::isEmployeeExists(std::string p, std::string c)
     return false;
 };
 
-bool Database::isSupplierExists(std::string p, std::string c) 
+bool Database::isSupplierExists(std::string p, std::string c)
 {
-    for (auto& e : suppliers)
+    for (auto &e : suppliers)
     {
         if (e.getLogin() == p && e.getPasswd() == c)
         {
@@ -54,9 +53,9 @@ bool Database::isSupplierExists(std::string p, std::string c)
     return false;
 };
 
-Customer Database::loginCustomer(std::string p, std::string c) 
+Customer Database::loginCustomer(std::string p, std::string c)
 {
-    for (auto& e : customers)
+    for (auto &e : customers)
     {
         if (e.getLogin() == p && e.getPasswd() == c)
         {
@@ -68,7 +67,7 @@ Customer Database::loginCustomer(std::string p, std::string c)
 
 Employee Database::loginEmployee(std::string p, std::string c)
 {
-    for (auto& e : employees)
+    for (auto &e : employees)
     {
         if (e.getLogin() == p && e.getPasswd() == c)
         {
@@ -78,9 +77,9 @@ Employee Database::loginEmployee(std::string p, std::string c)
     throw std::runtime_error("Employee not found");
 };
 
-Supplier Database::loginSupplier(std::string p, std::string c) 
+Supplier Database::loginSupplier(std::string p, std::string c)
 {
-    for (auto& e : suppliers)
+    for (auto &e : suppliers)
     {
         if (e.getLogin() == p && e.getPasswd() == c)
         {
@@ -94,7 +93,8 @@ void Database::readFolks()
 {
     std::fstream file("database.txt", std::ios::in);
 
-    if (!file.is_open()) {
+    if (!file.is_open())
+    {
         std::cerr << "Błąd przy otwieraniu pliku" << std::endl;
         return;
     }
@@ -113,28 +113,24 @@ void Database::readFolks()
         ss.ignore();
         std::getline(ss, password, ';');
 
-        switch (type) 
+        switch (type)
         {
-            case 'k':
-            {
-                customers.push_back(Customer(login, password));
-                break;
-            }
-            case 'p':
-            {
-                employees.push_back(Employee(login, password));
-                break;
-            }
-            case 'd':
-            {
-                suppliers.push_back(Supplier(login, password));
-                break;
-            }
-            default:
-            {
-                std::cerr << "Nieznany typ użytkownika: " << type << std::endl;
-                break;
-            }
+        case 'k': {
+            customers.push_back(Customer(login, password));
+            break;
+        }
+        case 'p': {
+            employees.push_back(Employee(login, password));
+            break;
+        }
+        case 'd': {
+            suppliers.push_back(Supplier(login, password));
+            break;
+        }
+        default: {
+            std::cerr << "Nieznany typ użytkownika: " << type << std::endl;
+            break;
+        }
         }
     }
     // Plik zostanie zamknięty automatycznie przez destruktor std::fstream
@@ -143,19 +139,19 @@ void Database::readFolks()
 void Database::showFolks()
 {
     std::cout << "Klienci:\n";
-    for (Customer& k : customers) 
+    for (Customer &k : customers)
     {
         std::cout << "Login: " << k.getLogin() << ", Haslo: " << k.getPasswd() << "\n";
     }
 
     std::cout << "\nPracownicy:\n";
-    for (Employee& p : employees) 
+    for (Employee &p : employees)
     {
         std::cout << "Login: " << p.getLogin() << ", Haslo: " << p.getPasswd() << "\n";
     }
 
     std::cout << "\nDostawcy:\n";
-    for (Supplier& d : suppliers) 
+    for (Supplier &d : suppliers)
     {
         std::cout << "Login: " << d.getLogin() << ", Haslo: " << d.getPasswd() << "\n";
     }

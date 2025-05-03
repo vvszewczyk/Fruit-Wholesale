@@ -1,4 +1,4 @@
-#include "Payment.h"
+#include "../include/Payment.h"
 #include <iostream>
 
 bool Payment::processPayment(Order &o, const std::string &paymentMethod)

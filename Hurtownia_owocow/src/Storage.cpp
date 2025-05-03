@@ -1,15 +1,14 @@
-#include "Storage.h"
-#include <iostream>
+#include "../include/Storage.h"
 #include <fstream>
+#include <iostream>
 #include <sstream>
 
-Storage::Storage()
-{
+Storage::Storage() {
     // TO DO
     // Push the control people
 };
 
-Storage* Storage::getInstance()
+Storage *Storage::getInstance()
 {
     if (storage == nullptr)
     {
@@ -18,12 +17,12 @@ Storage* Storage::getInstance()
     return storage;
 }
 
-//getter ceny z mapy
-float Storage::getPrice(const std::string& name) const 
+// getter ceny z mapy
+float Storage::getPrice(const std::string &name) const
 {
-    for (const auto& fruit : fruits) 
+    for (const auto &fruit : fruits)
     {
-        if (fruit.first.getName() == name) 
+        if (fruit.first.getName() == name)
         {
             return fruit.first.getPrice();
         }
@@ -31,34 +30,34 @@ float Storage::getPrice(const std::string& name) const
     return -1;
 }
 
-//getter ilości owocu z mapy
-int Storage::getAmount(const std::string& name) const 
+// getter ilości owocu z mapy
+int Storage::getAmount(const std::string &name) const
 {
     int totalAmount = 0;
-    for (const auto& pair : fruits) 
+    for (const auto &pair : fruits)
     {
-        if (pair.first.getName() == name) 
+        if (pair.first.getName() == name)
         {
             totalAmount += pair.second;
         }
     }
 
-    if (totalAmount > 0) 
+    if (totalAmount > 0)
     {
         return totalAmount;
     }
-    else 
+    else
     {
         return 0;
     }
 }
 
-//getter całego obiektu z mapy
-Fruit Storage::getFruit(const std::string& name) const 
+// getter całego obiektu z mapy
+Fruit Storage::getFruit(const std::string &name) const
 {
-    for (const auto& fruit : fruits) 
+    for (const auto &fruit : fruits)
     {
-        if (fruit.first.getName() == name) 
+        if (fruit.first.getName() == name)
         {
             return fruit.first;
         }
@@ -67,12 +66,12 @@ Fruit Storage::getFruit(const std::string& name) const
     return Fruit("", 0.0f);
 }
 
-//sprawdzenie, czy owoc jest w mapie
-bool Storage::isInStorage(const std::string& name) const 
+// sprawdzenie, czy owoc jest w mapie
+bool Storage::isInStorage(const std::string &name) const
 {
-    for (const auto& item : fruits) 
+    for (const auto &item : fruits)
     {
-        if (item.first.getName() == name) 
+        if (item.first.getName() == name)
         {
             return true;
         }
@@ -80,8 +79,8 @@ bool Storage::isInStorage(const std::string& name) const
     return false;
 }
 
-//wczytywanie danych z pliku i zapis do mapy
-void Storage::readStorage() 
+// wczytywanie danych z pliku i zapis do mapy
+void Storage::readStorage()
 {
     std::fstream file("storage.txt", std::ios::in);
 
@@ -113,17 +112,18 @@ void Storage::readStorage()
     file.close();
 }
 
-//wyświetlenie danych z mapy
-void Storage::showStorage() 
+// wyświetlenie danych z mapy
+void Storage::showStorage()
 {
-    for (const auto& fruit : fruits)
+    for (const auto &fruit : fruits)
     {
-        std::cout << "Nazwa: " << fruit.first.getName() << ", Cena: " << fruit.first.getPrice()<< ", Ilosc: " << fruit.second << std::endl;
+        std::cout << "Nazwa: " << fruit.first.getName() << ", Cena: " << fruit.first.getPrice()
+                  << ", Ilosc: " << fruit.second << std::endl;
     }
 }
 
-    //dodanie owoca do pliku storage.txt i do mapy
-void Storage::addFruit(std::string name, float price, int amount) 
+// dodanie owoca do pliku storage.txt i do mapy
+void Storage::addFruit(std::string name, float price, int amount)
 {
     std::ofstream file("storage.txt", std::ios::app);
 
@@ -133,7 +133,7 @@ void Storage::addFruit(std::string name, float price, int amount)
         return;
     }
 
-    for (const auto& fruit : fruits)
+    for (const auto &fruit : fruits)
     {
         if (fruit.first.getName() == name)
         {
@@ -151,11 +151,11 @@ void Storage::addFruit(std::string name, float price, int amount)
     file.close();
 }
 
-    //usuniecie owoca z pliku i mapy
-void Storage::deleteFruit(const std::string& name) 
- {
+// usuniecie owoca z pliku i mapy
+void Storage::deleteFruit(const std::string &name)
+{
     bool fruitExists = false;
-    for (const auto& fruit : fruits)
+    for (const auto &fruit : fruits)
     {
         if (fruit.first.getName() == name)
         {
@@ -199,11 +199,11 @@ void Storage::deleteFruit(const std::string& name)
     fileOut.close();
 }
 
-    //aktualizacja danych danego owoca w pliku i w mapie
-void Storage::updateFruit(const std::string& name, float newPrice, int newAmount) 
+// aktualizacja danych danego owoca w pliku i w mapie
+void Storage::updateFruit(const std::string &name, float newPrice, int newAmount)
 {
     bool fruitExists = false;
-    for (const auto& fruit : fruits)
+    for (const auto &fruit : fruits)
     {
         if (fruit.first.getName() == name)
         {
@@ -217,14 +217,14 @@ void Storage::updateFruit(const std::string& name, float newPrice, int newAmount
         std::cerr << "Owoc o nazwie " << name << " nie istnieje." << std::endl;
         return;
     }
-    //usuniecie z mapy
-    for (auto fruit = fruits.begin(); fruit != fruits.end();) 
+    // usuniecie z mapy
+    for (auto fruit = fruits.begin(); fruit != fruits.end();)
     {
-        if (fruit->first.getName() == name) 
+        if (fruit->first.getName() == name)
         {
             fruit = fruits.erase(fruit);
         }
-        else 
+        else
         {
             fruit++;
         }
@@ -237,9 +237,9 @@ void Storage::updateFruit(const std::string& name, float newPrice, int newAmount
     std::ifstream file("storage.txt");
     std::stringstream buffer;
     std::string line;
-    while (getline(file, line)) 
+    while (getline(file, line))
     {
-        if (line.find(name + ",") != std::string::npos) 
+        if (line.find(name + ",") != std::string::npos)
         {
             buffer << name << ", " << newPrice << ", " << newAmount << ";\n";
         }

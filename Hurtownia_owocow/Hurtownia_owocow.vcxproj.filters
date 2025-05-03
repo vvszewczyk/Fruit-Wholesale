@@ -1,89 +1,82 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Pliki źródłowe">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Pliki nagłówkowe">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Pliki zasobów">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{e79cd1bb-f187-4b25-81e2-f5d72f9589f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{2650df9b-2eff-43f0-adf3-4a05877939c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Customer.h">
-      <Filter>Pliki nagłówkowe</Filter>
+    <ClInclude Include="include\Customer.h">
+      <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Database.h">
-      <Filter>Pliki nagłówkowe</Filter>
+    <ClInclude Include="include\Database.h">
+      <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Employee.h">
-      <Filter>Pliki nagłówkowe</Filter>
+    <ClInclude Include="include\Delivery.h">
+      <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Fruit.h">
-      <Filter>Pliki nagłówkowe</Filter>
+    <ClInclude Include="include\Employee.h">
+      <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Order.h">
-      <Filter>Pliki nagłówkowe</Filter>
+    <ClInclude Include="include\Fruit.h">
+      <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Person.h">
-      <Filter>Pliki nagłówkowe</Filter>
+    <ClInclude Include="include\Order.h">
+      <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Storage.h">
-      <Filter>Pliki nagłówkowe</Filter>
+    <ClInclude Include="include\Payment.h">
+      <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Supplier.h">
-      <Filter>Pliki nagłówkowe</Filter>
+    <ClInclude Include="include\Person.h">
+      <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Payment.h">
-      <Filter>Pliki nagłówkowe</Filter>
+    <ClInclude Include="include\Storage.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Supplier.h">
+      <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Supplier.cpp">
-      <Filter>Pliki źródłowe</Filter>
+    <ClCompile Include="src\Customer.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Customer.cpp">
-      <Filter>Pliki źródłowe</Filter>
+    <ClCompile Include="src\Database.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Database.cpp">
-      <Filter>Pliki źródłowe</Filter>
+    <ClCompile Include="src\Delivery.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Employee.cpp">
-      <Filter>Pliki źródłowe</Filter>
+    <ClCompile Include="src\Employee.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Fruit.cpp">
-      <Filter>Pliki źródłowe</Filter>
+    <ClCompile Include="src\Fruit.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Pliki źródłowe</Filter>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Order.cpp">
-      <Filter>Pliki źródłowe</Filter>
+    <ClCompile Include="src\Order.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Person.cpp">
-      <Filter>Pliki źródłowe</Filter>
+    <ClCompile Include="src\Payment.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Storage.cpp">
-      <Filter>Pliki źródłowe</Filter>
+    <ClCompile Include="src\Person.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Payment.cpp">
-      <Filter>Pliki źródłowe</Filter>
+    <ClCompile Include="src\Storage.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="storage.txt">
-      <Filter>Pliki źródłowe</Filter>
-    </Text>
-    <Text Include="database.txt">
-      <Filter>Pliki źródłowe</Filter>
-    </Text>
-    <Text Include="orders.txt">
-      <Filter>Pliki źródłowe</Filter>
-    </Text>
+    <ClCompile Include="src\Supplier.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

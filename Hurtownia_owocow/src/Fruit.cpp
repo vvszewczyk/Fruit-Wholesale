@@ -1,4 +1,4 @@
-#include "Fruit.h"
+#include "../include/Fruit.h"
 
 Fruit::Fruit(std::string n, float c) : name(std::move(n)), price(c)
 {
