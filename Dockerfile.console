@@ -1,0 +1,17 @@
+FROM gcc:latest AS builder
+
+RUN apt-get update && apt-get install -y \
+    git build-essential cmake libgtest-dev
+
+WORKDIR /app
+COPY . .
+
+RUN g++ -std=c++17 \
+    Hurtownia_owocow/*.cpp \
+    -o fruit_console
+
+FROM ubuntu:22.04
+WORKDIR /app
+COPY --from=builder /app/fruit_console /usr/local/bin/fruit_console
+RUN chmod +x /usr/local/bin/fruit_console
+ENTRYPOINT ["fruit_console"]
